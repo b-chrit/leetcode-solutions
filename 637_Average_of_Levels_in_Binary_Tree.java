@@ -37,23 +37,4 @@ class Solution {
 
         return result;
     }
-
-    // Not on leetcode -- Level Order Successor
-    public TreeNode findSuccessor(TreeNode root, int key){
-        if(root == null) return root;
-
-        Queue<TreeNode> myQueue = new LinkedList<>();
-        myQueue.offer(root);
-
-        while(!myQueue.isEmpty()){
-            TreeNode current = myQueue.poll();
-
-            if(current.left != null) myQueue.offer(current.left);
-            if(current.right != null) myQueue.offer(current.right);
-
-            if(current.val == key) break;
-        }
-
-        return myQueue.peek();
-    }
 }
