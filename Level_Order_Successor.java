@@ -1,7 +1,7 @@
 import java.util.LinkedList;
 import java.util.Queue;
 
-public class Solution {
+public class Level_Order_Successor {
 
     public static class TreeNode {
         int val;
