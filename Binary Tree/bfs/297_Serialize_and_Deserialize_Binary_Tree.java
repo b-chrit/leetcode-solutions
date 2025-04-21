@@ -7,7 +7,7 @@
  *     TreeNode(int x) { val = x; }
  * }
  */
-public class Codec {
+public class 297_Serialize_and_Deserialize_Binary_Tree {
 
     // Encodes a tree to a single string.
     public String serialize(TreeNode root) {
