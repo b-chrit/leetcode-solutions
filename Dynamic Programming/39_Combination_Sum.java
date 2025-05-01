@@ -68,4 +68,28 @@ class Solution {
 
         return table[target];
     }
+
+    Map<Integer, int[]> memo = new HashMap<>();
+
+    public int[] howSum(int[] candidates, int target) {
+    if (memo.containsKey(target)) return memo.get(target);
+    if (target == 0) return new int[0];
+    if (target < 0) return null;
+
+    for (int candidate : candidates) {
+        int remainder = target - candidate;
+        int[] remainderResult = howSum(candidates, remainder);
+        
+        if (remainderResult != null) {
+            int[] result = new int[remainderResult.length + 1];
+            System.arraycopy(remainderResult, 0, result, 0, remainderResult.length);
+            result[remainderResult.length] = candidate;
+            memo.put(target, result);
+            return result;
+        }
+    }
+
+    memo.put(target, null);
+    return null;
+    }
 }
