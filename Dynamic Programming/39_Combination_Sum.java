@@ -34,4 +34,38 @@ class Solution {
         myMap.put(target, result);
         return result;
     }
+
+
+    // Map<Integer, Boolean> memo = new HashMap<>();
+    // public static boolean canSum(int[] candidates, int target){
+    //     if(memo.containsKey(target)) return memo.get(target);
+    //     if(target == 0) return true;
+
+    //     for(int candidate : candidates){
+    //         int difference = target - candidate;
+    //         if(canSum(candidates, difference) == true){
+    //             memo.put(target, true);
+    //             return memo.get(target);
+    //         }
+    //     }
+    //     memo.put(target, false);
+    //     return memo.get(target);
+    // }
+
+    public static boolean canSum(int[] candidates, int target) {
+        boolean[] table = new boolean[target + 1];
+        table[0] = true;
+
+        for (int i = 0; i <= target; i++) {
+            if (table[i]) {  
+                for (int candidate : candidates) {
+                    if (i + candidate <= target) { 
+                        table[i + candidate] = true;
+                    }
+                }
+            }
+        }
+
+        return table[target];
+    }
 }
