@@ -92,4 +92,24 @@ class Solution {
     memo.put(target, null);
     return null;
     }
+
+    public static int[] howSum(int[] candidates, int target) {
+        int[][] table = new int[target + 1][];
+        table[0] = new int[0];
+        
+        for (int i = 0; i <= target; i++) {
+            if (table[i] != null) {
+                for (int candidate : candidates) {
+                    if (i + candidate <= target) {
+                        int[] newCombination = new int[table[i].length + 1];
+                        System.arraycopy(table[i], 0, newCombination, 0, table[i].length);
+                        newCombination[table[i].length] = candidate;
+                        table[i + candidate] = newCombination;
+                    }
+                }
+            }
+        }
+        
+        return table[target];
+    }
 }
