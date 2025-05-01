@@ -93,23 +93,30 @@ class Solution {
     return null;
     }
 
-    public static int[] howSum(int[] candidates, int target) {
-        int[][] table = new int[target + 1][];
-        table[0] = new int[0];
-        
-        for (int i = 0; i <= target; i++) {
-            if (table[i] != null) {
-                for (int candidate : candidates) {
-                    if (i + candidate <= target) {
-                        int[] newCombination = new int[table[i].length + 1];
-                        System.arraycopy(table[i], 0, newCombination, 0, table[i].length);
-                        newCombination[table[i].length] = candidate;
-                        table[i + candidate] = newCombination;
-                    }
+    Map<Integer, int[]> memo = new HashMap<>();
+    public static int[] bestSum(int[] candidates, int target) {
+        if (memo.containsKey(target)) return memo.get(target);
+        if (target == 0) return new int[0];
+        if (target < 0) return null;
+
+        int[] shortestCombination = null;
+
+        for (int candidate : candidates) {
+            int remainder = target - candidate;
+            int[] remainderResult = bestSum(candidates, remainder);
+
+            if (remainderResult != null) {
+                int[] combination = new int[remainderResult.length + 1];
+                System.arraycopy(remainderResult, 0, combination, 0, remainderResult.length);
+                combination[remainderResult.length] = candidate;
+                
+                if (shortestCombination == null || combination.length < shortestCombination.length) {
+                    shortestCombination = combination;
                 }
             }
         }
-        
-        return table[target];
+
+        memo.put(target, shortestCombination);
+        return shortestCombination;
     }
 }
