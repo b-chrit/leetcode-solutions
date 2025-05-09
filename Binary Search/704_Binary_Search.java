@@ -28,4 +28,49 @@ class Solution {
            return search(nums, target, middleIndex + 1, right);
         }
     }
+
+
+
+
+
+     /**
+     * Performs binary search on a sorted array (either ascending or descending)
+     * @param arr The sorted array to search in
+     * @param target The element to search for
+     * @return The index of the target element if found, otherwise -1
+     */
+    public static int search(int[] arr, int target) {
+        if (arr == null || arr.length == 0) {
+            return -1;
+        }
+        
+        int start = 0;
+        int end = arr.length - 1;
+        
+        boolean isAscending = arr[start] < arr[end];
+        
+        while (start <= end) {
+            int mid = start + (end - start) / 2;
+            
+            if (arr[mid] == target) {
+                return mid;
+            }
+            
+            if (isAscending) {
+                if (target < arr[mid]) {
+                    end = mid - 1;
+                } else {
+                    start = mid + 1;
+                }
+            } else {
+                if (target > arr[mid]) {
+                    end = mid - 1;
+                } else {
+                    start = mid + 1;
+                }
+            }
+        }
+        
+        return -1;
+    }
 }
