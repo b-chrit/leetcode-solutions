@@ -14,5 +14,18 @@ class Solution {
             }
         }
         
+        // Check columns
+        for (int j = 0; j < 9; j++) {
+            Set<Character> colSet = new HashSet<>();
+            for (int i = 0; i < 9; i++) {
+                char currentChar = board[i][j];
+                if (currentChar != '.') {
+                    if (colSet.contains(currentChar)) {
+                        return false;
+                    }
+                    colSet.add(currentChar);
+                }
+            }
+        }
     }
 }
