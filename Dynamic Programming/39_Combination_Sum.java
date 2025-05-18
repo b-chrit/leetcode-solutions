@@ -36,21 +36,21 @@ class Solution {
     }
 
 
-    // Map<Integer, Boolean> memo = new HashMap<>();
-    // public static boolean canSum(int[] candidates, int target){
-    //     if(memo.containsKey(target)) return memo.get(target);
-    //     if(target == 0) return true;
+    Map<Integer, Boolean> memo = new HashMap<>();
+    public static boolean canSum(int[] candidates, int target){
+        if(memo.containsKey(target)) return memo.get(target);
+        if(target == 0) return true;
 
-    //     for(int candidate : candidates){
-    //         int difference = target - candidate;
-    //         if(canSum(candidates, difference) == true){
-    //             memo.put(target, true);
-    //             return memo.get(target);
-    //         }
-    //     }
-    //     memo.put(target, false);
-    //     return memo.get(target);
-    // }
+        for(int candidate : candidates){
+            int difference = target - candidate;
+            if(canSum(candidates, difference) == true){
+                memo.put(target, true);
+                return memo.get(target);
+            }
+        }
+        memo.put(target, false);
+        return memo.get(target);
+    }
 
     public static boolean canSum(int[] candidates, int target) {
         boolean[] table = new boolean[target + 1];
