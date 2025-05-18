@@ -27,5 +27,31 @@ class Solution {
                 }
             }
         }
+        
+        // Check 3x3 sub-boxes
+        for (int boxRow = 0; boxRow < 3; boxRow++) {
+            for (int boxCol = 0; boxCol < 3; boxCol++) {
+                Set<Character> boxSet = new HashSet<>();
+                
+                int startRow = boxRow * 3;
+                int endRow = startRow + 3;
+                int startCol = boxCol * 3;
+                int endCol = startCol + 3;
+                
+                for (int i = startRow; i < endRow; i++) {
+                    for (int j = startCol; j < endCol; j++) {
+                        char currentChar = board[i][j];
+                        if (currentChar != '.') {
+                            if (boxSet.contains(currentChar)) {
+                                return false;
+                            }
+                            boxSet.add(currentChar);
+                        }
+                    }
+                }
+            }
+        }
+        
+        return true;
     }
 }
