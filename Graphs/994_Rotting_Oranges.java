@@ -19,7 +19,13 @@ class Solution {
         
         if (freshOranges == 0) return 0;
         
-        int[][] adjacentDirections = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+        int[][] adjacentDirections = {
+                                        {-1, 0},
+                                        {1, 0},
+                                        {0, -1},
+                                        {0, 1} 
+                                    };
+
         int minutesElapsed = 0;
         
         while (!rottenQueue.isEmpty()) {
