@@ -19,5 +19,38 @@ class Solution {
         
         if (freshOranges == 0) return 0;
         
+        int[][] adjacentDirections = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+        int minutesElapsed = 0;
+        
+        while (!rottenQueue.isEmpty()) {
+            int currentLevelSize = rottenQueue.size();
+            boolean orangesRottedThisMinute = false;
+            
+            for (int i = 0; i < currentLevelSize; i++) {
+                int[] currentPosition = rottenQueue.poll();
+                int currentRow = currentPosition[0];
+                int currentCol = currentPosition[1];
+                
+                for (int[] direction : adjacentDirections) {
+                    int adjacentRow = currentRow + direction[0];
+                    int adjacentCol = currentCol + direction[1];
+                    
+                    if (isValidPosition(adjacentRow, adjacentCol, rows, cols) && 
+                        grid[adjacentRow][adjacentCol] == 1) {
+                        
+                        grid[adjacentRow][adjacentCol] = 2;
+                        rottenQueue.offer(new int[]{adjacentRow, adjacentCol});
+                        freshOranges--;
+                        orangesRottedThisMinute = true;
+                    }
+                }
+            }
+            
+            if (orangesRottedThisMinute) {
+                minutesElapsed++;
+            }
+        }
+        
+        return freshOranges == 0 ? minutesElapsed : -1;
     }
 }
