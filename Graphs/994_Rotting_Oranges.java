@@ -53,4 +53,8 @@ class Solution {
         
         return freshOranges == 0 ? minutesElapsed : -1;
     }
+    
+    private boolean isValidPosition(int row, int col, int totalRows, int totalCols) {
+        return row >= 0 && row < totalRows && col >= 0 && col < totalCols;
+    }
 }
