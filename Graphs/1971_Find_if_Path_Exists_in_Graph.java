@@ -34,3 +34,34 @@ class Solution {
     }
     
 }
+
+
+public class ShortestPathBFS {
+    
+    public static int shortestPath(List<List<Integer>> adjacencyList, int source, int destination) {
+        Set<Integer> visitedNodes = new HashSet<>();
+        Queue<int[]> nodeQueue = new LinkedList<>();
+        
+        nodeQueue.offer(new int[]{source, 0});
+        visitedNodes.add(source);
+        
+        while (!nodeQueue.isEmpty()) {
+            int[] currentNodeData = nodeQueue.poll();
+            int currentNode = currentNodeData[0];
+            int currentDistance = currentNodeData[1];
+            
+            if (currentNode == destination) {
+                return currentDistance;
+            }
+            
+            for (int neighbor : adjacencyList.get(currentNode)) {
+                if (!visitedNodes.contains(neighbor)) {
+                    visitedNodes.add(neighbor);
+                    nodeQueue.offer(new int[]{neighbor, currentDistance + 1});
+                }
+            }
+        }
+        
+        return -1;
+    }
+}
