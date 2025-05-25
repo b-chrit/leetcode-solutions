@@ -67,6 +67,12 @@ public class LRUCache {
         removeNode(node);
         addToHead(node);
     }
+    
+    private Node removeTail() {
+        Node lastNode = tail.prev;
+        removeNode(lastNode);
+        return lastNode;
+    }
 }
 
 /**
