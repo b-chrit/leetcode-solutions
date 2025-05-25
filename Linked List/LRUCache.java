@@ -62,6 +62,12 @@ public class LRUCache {
         node.prev.next = node.next;
         node.next.prev = node.prev;
     }
+    
+    private void moveToHead(Node node) {
+        removeNode(node);
+        addToHead(node);
+    }
+}
 
 /**
  * Your LRUCache object will be instantiated and called as such:
