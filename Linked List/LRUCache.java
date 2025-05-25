@@ -50,6 +50,13 @@ public class LRUCache {
             addToHead(newNode);
         }
     }
+    
+    private void addToHead(Node node) {
+        node.prev = head;
+        node.next = head.next;
+        head.next.prev = node;
+        head.next = node;
+    }
 }
 
 /**
