@@ -35,7 +35,9 @@ class Solution {
     
 }
 
-
+// Find shortest path distance in unweighted graph using BFS
+// BFS guarantees shortest path since it explores nodes level by level
+// Time: O(V + E), Space: O(V)
 public class ShortestPathBFS {
     
     public static int shortestPath(List<List<Integer>> adjacencyList, int source, int destination) {
