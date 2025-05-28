@@ -32,4 +32,13 @@ class Solution {
         
         return false;
     }
+    
+    private boolean hasIdenticalFrequencies(int[] firstArray, int[] secondArray) {
+        for (int index = 0; index < 26; index++) {
+            if (firstArray[index] != secondArray[index]) {
+                return false;
+            }
+        }
+        return true;
+    }
 }
