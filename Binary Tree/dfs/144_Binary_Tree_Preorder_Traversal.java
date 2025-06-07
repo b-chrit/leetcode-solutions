@@ -30,4 +30,23 @@ class Solution {
         preOrderTraversal(root.right, result);
     }
     
+
+    public List<Integer> preorderTraversal(TreeNode root) {
+        if(root == null) return new ArrayList<>();
+
+        Stack<TreeNode> myStack = new Stack<>();
+        List<Integer> result = new ArrayList<>();
+
+        myStack.push(root);
+
+        while(!myStack.isEmpty()){
+            TreeNode current = myStack.pop();
+            result.add(current.val);
+
+            if(current.right != null) myStack.push(current.right);
+            if(current.left != null) myStack.push(current.left);
+        }
+
+        return result;
+    }
 }
