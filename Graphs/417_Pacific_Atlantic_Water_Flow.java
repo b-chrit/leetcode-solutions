@@ -37,4 +37,18 @@ public class Solution {
 
         return res;
     }
+
+    private void dfs(int r, int c, Set<String> visit, int[][] heights, int prevHeight) {
+        String key = r + "," + c;
+
+        if (visit.contains(key) || r < 0 || c < 0 || r >= rows || c >= cols || heights[r][c] < prevHeight) {
+            return;
+        }
+
+        visit.add(key);
+        dfs(r + 1, c, visit, heights, heights[r][c]);
+        dfs(r - 1, c, visit, heights, heights[r][c]);
+        dfs(r, c + 1, visit, heights, heights[r][c]);
+        dfs(r, c - 1, visit, heights, heights[r][c]);
+    }
 }
