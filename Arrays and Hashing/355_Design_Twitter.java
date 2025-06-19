@@ -48,4 +48,19 @@ class Twitter {
         
         return newsFeed;
     }
+    
+    public void follow(int followerId, int followeeId) {
+        if (followerId != followeeId) {
+            if (!following.containsKey(followerId)) {
+                following.put(followerId, new HashSet<>());
+            }
+            following.get(followerId).add(followeeId);
+        }
+    }
+    
+    public void unfollow(int followerId, int followeeId) {
+        if (following.containsKey(followerId)) {
+            following.get(followerId).remove(followeeId);
+        }
+    }
 }
