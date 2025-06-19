@@ -12,4 +12,40 @@ class Twitter {
             this.timestamp = timestamp;
         }
     }
+
+    public Twitter() {
+        following = new HashMap<>();
+        tweets = new HashMap<>();
+        timestamp = 0;
+    }
+    
+    public void postTweet(int userId, int tweetId) {
+        if (!tweets.containsKey(userId)) {
+            tweets.put(userId, new ArrayList<>());
+        }
+        tweets.get(userId).add(new Tweet(tweetId, timestamp++));
+    }
+    
+    public List<Integer> getNewsFeed(int userId) {
+        PriorityQueue<Tweet> maxHeap = new PriorityQueue<>((a, b) -> b.timestamp - a.timestamp);
+        
+        if (tweets.containsKey(userId)) {
+            maxHeap.addAll(tweets.get(userId));
+        }
+        
+        if (following.containsKey(userId)) {
+            for (int followeeId : following.get(userId)) {
+                if (tweets.containsKey(followeeId)) {
+                    maxHeap.addAll(tweets.get(followeeId));
+                }
+            }
+        }
+        
+        List<Integer> newsFeed = new ArrayList<>();
+        for (int i = 0; i < 10 && !maxHeap.isEmpty(); i++) {
+            newsFeed.add(maxHeap.poll().tweetId);
+        }
+        
+        return newsFeed;
+    }
 }
