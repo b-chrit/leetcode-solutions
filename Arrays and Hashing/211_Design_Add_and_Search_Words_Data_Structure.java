@@ -1,4 +1,3 @@
-
 class WordDictionary {
 
     class TrieNode {
@@ -29,6 +28,36 @@ class WordDictionary {
         }
         
         current.isEndOfWord = true;
+    }
+    
+    public boolean search(String word) {
+        return searchHelper(word, 0, root);
+    }
+    
+    private boolean searchHelper(String word, int index, TrieNode node) {
+        if (index == word.length()) {
+            return node.isEndOfWord;
+        }
+        
+        char c = word.charAt(index);
+        
+        if (c == '.') {
+            for (TrieNode child : node.children) {
+                if (child != null && searchHelper(word, index + 1, child)) {
+                    return true;
+                }
+            }
+            return false;
+        } else {
+            int charIndex = c - 'a';
+            TrieNode child = node.children[charIndex];
+            
+            if (child == null) {
+                return false;
+            }
+            
+            return searchHelper(word, index + 1, child);
+        }
     }
 }
 
