@@ -24,4 +24,30 @@ class Solution {
         
         return maxPath;
     }
+    
+    private int dfs(int row, int col) {
+        String key = row + "," + col;
+        
+        if (memo.containsKey(key)) {
+            return memo.get(key);
+        }
+        
+        int maxLength = 1;
+        
+        for (int[] dir : directions) {
+            int newRow = row + dir[0];
+            int newCol = col + dir[1];
+            
+            if (isValid(newRow, newCol) && matrix[newRow][newCol] > matrix[row][col]) {
+                maxLength = Math.max(maxLength, 1 + dfs(newRow, newCol));
+            }
+        }
+        
+        memo.put(key, maxLength);
+        return maxLength;
+    }
+    
+    private boolean isValid(int row, int col) {
+        return row >= 0 && row < m && col >= 0 && col < n;
+    }
 }
