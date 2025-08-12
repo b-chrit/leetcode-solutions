@@ -17,10 +17,8 @@ class Solution {
         int n = votes[0].length();
         Map<Character, Team> teamMap = new HashMap<>();
         
-        for (String vote : votes) {
-            for (char teamName : vote.toCharArray()) {
-                teamMap.putIfAbsent(teamName, new Team(teamName, n));
-            }
+        for (char teamName : votes[0].toCharArray()) {
+            teamMap.put(teamName, new Team(teamName, n));
         }
         
         for (String vote : votes) {
