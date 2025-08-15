@@ -42,14 +42,15 @@ class UnitConverterDFS {
         }
         visited.remove(current);
         return -1.0;
+    }
     
     public static void main(String[] args) {
         UnitConverterDFS converter = new UnitConverterDFS();
         converter.addConversion("m", "ft", 3.28084);
         converter.addConversion("ft", "in", 12);
         
-        System.out.println(converter.convert(1, "m", "in"));
-        System.out.println(converter.convert(1, "m", "ft"));
+        System.out.println(converter.convert("m", "in", 1));
+        System.out.println(converter.convert("m", "ft", 1));
     }
 }
 
@@ -64,21 +65,12 @@ class UnitConverterBFS {
         }
     }
     
-    class State {
-        String unit;
-        double multiplier;
-        
-        State(String unit, double multiplier) {
-            this.unit = unit;
-            this.multiplier = multiplier;
-        }
-    }
-    
     private final Map<String, List<Edge>> graph = new HashMap<>();
     
     public void addConversion(String from, String to, double factor) {
         if (!graph.containsKey(from)) graph.put(from, new ArrayList<>());
         if (!graph.containsKey(to)) graph.put(to, new ArrayList<>());
+        
         graph.get(from).add(new Edge(to, factor));
         graph.get(to).add(new Edge(from, 1.0 / factor));
     }
@@ -87,17 +79,17 @@ class UnitConverterBFS {
         if (!graph.containsKey(from) || !graph.containsKey(to)) return -1.0;
         if (from.equals(to)) return amount;
         
-        Queue<State> queue = new LinkedList<>();
+        Queue<Edge> queue = new LinkedList<>();
         Set<String> visited = new HashSet<>();
         
-        queue.offer(new State(from, 1.0));
+        queue.offer(new Edge(from, 1.0));
         visited.add(from);
         
         while (!queue.isEmpty()) {
-            State current = queue.poll();
+            Edge current = queue.poll();
             
-            for (Edge edge : graph.get(current.unit)) {
-                double newMultiplier = current.multiplier * edge.factor;
+            for (Edge edge : graph.get(current.to)) {
+                double newMultiplier = current.factor * edge.factor;
                 
                 if (edge.to.equals(to)) {
                     return amount * newMultiplier;
@@ -105,17 +97,20 @@ class UnitConverterBFS {
                 
                 if (!visited.contains(edge.to)) {
                     visited.add(edge.to);
-                    queue.offer(new State(edge.to, newMultiplier));
+                    queue.offer(new Edge(edge.to, newMultiplier));
                 }
             }
         }
+        
+        return -1.0;
+    }
     
     public static void main(String[] args) {
         UnitConverterBFS converter = new UnitConverterBFS();
         converter.addConversion("m", "ft", 3.28084);
         converter.addConversion("ft", "in", 12);
         
-        System.out.println(converter.convert(1, "m", "in"));
-        System.out.println(converter.convert(1, "m", "ft"));
+        System.out.println(converter.convert("m", "in", 1));
+        System.out.println(converter.convert("m", "ft", 1));
     }
 }
