@@ -22,6 +22,10 @@ class Solution {
             }
         }
         
-        return stack.peek();
+        StringBuilder result = new StringBuilder();
+        for (String str : stack) {
+            result.append(str);
+        }
+        return result.toString();
     }
 }
