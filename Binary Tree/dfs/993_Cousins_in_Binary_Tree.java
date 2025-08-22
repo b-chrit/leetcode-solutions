@@ -13,7 +13,8 @@
  *     }
  * }
  */
-class Solution {
+
+class Solution {  
     private int xDepth = -1;
     private int yDepth = -1;
     private TreeNode xParent = null;
