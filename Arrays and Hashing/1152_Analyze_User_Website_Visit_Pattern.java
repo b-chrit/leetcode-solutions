@@ -49,4 +49,16 @@ public class Solution {
             }
         }
 
+        String result = "";
+        int maxCount = 0;
+        for (String pattern : patternToUsers.keySet()) {
+            int count = patternToUsers.get(pattern).size();
+            if (count > maxCount || (count == maxCount && pattern.compareTo(result) < 0)) {
+                maxCount = count;
+                result = pattern;
+            }
+        }
+
+        return Arrays.asList(result.split(","));
+    }
 }
