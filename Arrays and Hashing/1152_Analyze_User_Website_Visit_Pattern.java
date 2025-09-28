@@ -27,5 +27,26 @@ public class Solution {
             }
             userToSites.get(v.user).add(v.site);
         }
-    }
+
+        Map<String, Set<String>> patternToUsers = new HashMap<>();
+        for (String user : userToSites.keySet()) {
+            List<String> sites = userToSites.get(user);
+            if (sites.size() < 3) continue;
+
+            Set<String> seen = new HashSet<>();
+            for (int i = 0; i < sites.size(); i++) {
+                for (int j = i + 1; j < sites.size(); j++) {
+                    for (int k = j + 1; k < sites.size(); k++) {
+                        String pattern = sites.get(i) + "," + sites.get(j) + "," + sites.get(k);
+                        if (seen.add(pattern)) {
+                            if (!patternToUsers.containsKey(pattern)) {
+                                patternToUsers.put(pattern, new HashSet<>());
+                            }
+                            patternToUsers.get(pattern).add(user);
+                        }
+                    }
+                }
+            }
+        }
+
 }
